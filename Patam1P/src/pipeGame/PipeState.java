@@ -88,6 +88,7 @@ public class PipeState extends GeneralState {
 				return 'r';
 			if(location.getJ() > loc.getJ())
 				return 'l';
+		
 			}
 		}catch(Exception e){}
 		return 'q';

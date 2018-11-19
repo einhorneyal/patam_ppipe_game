@@ -28,7 +28,7 @@ public class PGS implements Solver{
 		System.out.println("**************Starting PGS BFS*****************");
 		Long bfsStart = new Date().getTime();
 		System.out.println("BFS:"+bfsStart);
-		//ArrayList<State> list = new BFS().search(new PipeSearchable(s));
+		ArrayList<State> list = new BFS().search(new PipeSearchable(s));
 		Long bfsEnd = new Date().getTime();
 		System.out.println("BFS:"+bfsEnd);
 		long bfsTotal = bfsEnd - bfsStart;
@@ -52,7 +52,7 @@ public class PGS implements Solver{
 		System.out.println("**************Starting PGS HC_HEAP*****************");
 		Long hc_heapStart = new Date().getTime();
 		System.out.println("HC_HEAP:"+hc_heapStart);
-		ArrayList<State> list4 = new HC_Heap().search(new PipeSearchable(s));
+		//ArrayList<State> list4 = new HC_Heap().search(new PipeSearchable(s));
 		Long hc_heapEnd = new Date().getTime();
 
 		System.out.println("HC_HEAP:"+hc_heapEnd);
@@ -71,7 +71,7 @@ public class PGS implements Solver{
 		//printList(list2);
 		System.out.println(hc_heapTotal);
 		
-		Solution ps = new PipeSolution(list4,s);
+		Solution ps = new PipeSolution(list,s);
 		return ps;
 	}
 
@@ -88,7 +88,7 @@ public class PGS implements Solver{
 			{
 				s1.print();
 				try{
-					//System.out.print("p:");
+					System.out.print("p:");
 					s1.getCameFrom().getLocation().print();
 				}catch(Exception e){}
 			}

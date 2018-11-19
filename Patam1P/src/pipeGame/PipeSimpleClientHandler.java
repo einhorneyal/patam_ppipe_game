@@ -52,13 +52,13 @@ public class PipeSimpleClientHandler implements ClientHandler {
 		}
         cacheManager = new FileCacheManager(m.getRepr());
         String solvedLevel = null;
-        
+        /*
         try {
 			 solvedLevel = cacheManager.load();
 		} catch (IOException e1) {
 			solvedLevel = null;
 		}
-        
+        */
         if (solvedLevel == null) {
         	solver = new PGS();
         	solution = solver.solve(m);       	

@@ -26,7 +26,7 @@ public class HC_Heap implements Searcher {
 		visited = new HashSet<String>();
 		open = new PriorityQueue<State>(searchable.getComp());
 		open.add(searchable.getInitialState());
-		int maxSize = 0;
+		
 		while(!open.isEmpty())
 		{
 			State v = open.poll();
@@ -35,13 +35,11 @@ public class HC_Heap implements Searcher {
 			
 			//System.out.println("This is V that we poped");
 			v.print();
-			if(maxSize < open.size())  maxSize = open.size();
 			if(!visited.contains(v))
 			{
 				if(searchable.isGoal(v))
 				{
 					//System.out.println("done! goal");
-					System.out.println("this is max obj:" +  maxSize);
 					return searchable.backTrack(v);
 				}
 				ArrayList<State> list = new ArrayList<State>();
