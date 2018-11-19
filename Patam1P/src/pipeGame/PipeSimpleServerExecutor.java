@@ -12,16 +12,16 @@ import java.util.concurrent.Executors;
 import server.ClientHandler;
 import server.Server;
 
-public class PipeSimpleServerExecutor_old implements Server {
+public class PipeSimpleServerExecutor implements Server {
     static int TCP_SERVER_PORT = 32;
     private ServerSocket serverSocket;
     private boolean stop = false;
 	private int counter = 0;
 
-    public PipeSimpleServerExecutor_old(int port) {
+    public PipeSimpleServerExecutor(int port) {
     	this.TCP_SERVER_PORT = port;
     }
-    public PipeSimpleServerExecutor_old() {
+    public PipeSimpleServerExecutor() {
     	this.TCP_SERVER_PORT = 32;
     }
     
@@ -39,7 +39,7 @@ public class PipeSimpleServerExecutor_old implements Server {
 	}
     
     private void startServer(ClientHandler clientHandler) throws IOException {
-        serverSocket = new ServerSocket(PipeSimpleServerExecutor_old.TCP_SERVER_PORT);
+        serverSocket = new ServerSocket(PipeSimpleServerExecutor.TCP_SERVER_PORT);
         serverSocket.setSoTimeout(1000);
         //System.out.println("Server connected - waiting");
         while (!stop) {
@@ -90,7 +90,7 @@ public class PipeSimpleServerExecutor_old implements Server {
 	
 	public static void main(String[] args)
 	{
-		Server s = new PipeSimpleServerExecutor_old();
+		Server s = new PipeSimpleServerExecutor();
 		s.start(new PipeSimpleClientHandler());
 		try {
 			System.in.read();

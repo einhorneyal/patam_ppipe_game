@@ -10,15 +10,15 @@ import java.net.SocketTimeoutException;
 import server.ClientHandler;
 import server.Server;
 
-public class PipeSimpleServer_old implements Server {
+public class PipeSimpleServer implements Server {
     static int TCP_SERVER_PORT = 32;
     private ServerSocket serverSocket;
     private boolean stop = false;
 	
-    public PipeSimpleServer_old(int port) {
+    public PipeSimpleServer(int port) {
     	this.TCP_SERVER_PORT = port;
     }
-    public PipeSimpleServer_old() {
+    public PipeSimpleServer() {
     	this.TCP_SERVER_PORT = 32;
     }
     
@@ -35,7 +35,7 @@ public class PipeSimpleServer_old implements Server {
 	}
     
     private void startServer(ClientHandler clientHandler) throws IOException {
-        serverSocket = new ServerSocket(PipeSimpleServer_old.TCP_SERVER_PORT);
+        serverSocket = new ServerSocket(PipeSimpleServer.TCP_SERVER_PORT);
         serverSocket.setSoTimeout(1000);
         //System.out.println("Server connected - waiting");
 
@@ -59,7 +59,7 @@ public class PipeSimpleServer_old implements Server {
 
 	public static void main(String[] args)
 	{
-		Server s = new PipeSimpleServer_old();
+		Server s = new PipeSimpleServer();
 		s.start(new PipeSimpleClientHandler());
 		try {
 			System.in.read();
