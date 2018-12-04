@@ -2,7 +2,7 @@ package view;
 
 
 import java.io.FileInputStream;
-
+import java.net.URL;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -37,12 +37,12 @@ public class PipeGameCnavas extends Canvas{
 			Image space  = null;;
 
 			try{
-				straightLine = new Image(new FileInputStream("./resorces/‏‏straight.png"));
-				end = new Image(new FileInputStream("./resorces/‏‏‏‏End.png"));
-				start = new Image(new FileInputStream("./resorces/‏‏‏‏startEnd.png"));
-				vertL = new Image(new FileInputStream("./resorces/‏‏ver.png"));
-				space = new Image(new FileInputStream("./resorces/space.png"));
-
+				
+				straightLine = new Image(getClass().getResource( "/resorces/‏‏straight.png" ).openStream());
+				start = new Image(getClass().getResource( "/resorces/‏‏startEnd.png" ).openStream());
+				space = new Image(getClass().getResource( "/resorces/‏‏space2.png" ).openStream());
+				end = new Image(getClass().getResource( "/resorces/‏‏end.png" ).openStream());
+				vertL = new Image(getClass().getResource( "/resorces/‏‏ver.png" ).openStream());
 
 			}catch(Exception e) 
 			{
