@@ -21,13 +21,15 @@ public class PipeMazeClientMainController implements Initializable {
 					{'g','-','|','L'},
 			};
 		
-		//@FXML
-		//PipeGameCanvas pgc;
+		@FXML
+		PipeMazeCanvas pgc;
 		
 
 		public void setPipeGameCanvas(char[][] lvl) 
 		{
-		//	pgc.setLevel(lvl);
+			pgc.scaleXProperty();
+			pgc.scaleYProperty();
+			pgc.setLevel(lvl);	
 		}
 		
 		@Override
