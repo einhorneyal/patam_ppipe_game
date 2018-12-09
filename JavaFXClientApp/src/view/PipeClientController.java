@@ -42,6 +42,6 @@ public class PipeClientController implements Initializable {
 			System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
 		}
 	}
-
-	
 }
+	
+

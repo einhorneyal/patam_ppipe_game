@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane prefHeight="467.0" prefWidth="507.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="application.PipeMazeClientMainController">
+<BorderPane prefHeight="467.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PipeMazeClientMainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -29,6 +29,11 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Theme Change">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>
@@ -40,6 +45,12 @@
       </HBox>
    </bottom>
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="424.0" prefWidth="90.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="18.0" prefWidth="112.0" text="Statistics" textAlignment="RIGHT" />
+         </children></VBox>
    </left>
+   <center>
+      <Canvas height="416.0" width="405.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
