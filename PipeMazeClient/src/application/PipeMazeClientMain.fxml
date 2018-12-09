@@ -13,9 +13,10 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Load Level">
+          <Menu mnemonicParsing="false" onAction="#openFile" text="Load Level">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="From disk" />
+                  <MenuItem mnemonicParsing="false" text="From server" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Solve">
