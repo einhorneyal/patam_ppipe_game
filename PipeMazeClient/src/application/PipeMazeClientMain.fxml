@@ -27,12 +27,12 @@
             </Menu>
           <Menu mnemonicParsing="false" text="Solve" />
           <Menu mnemonicParsing="false" text="Server Config" />
-            <Menu mnemonicParsing="false" onAction="#openFile" text="Theme">
+          <Menu mnemonicParsing="false" text="Theme">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Ninja turtles" />
-                  <MenuItem mnemonicParsing="false" text="Rat and cheese" />
+                  <MenuItem mnemonicParsing="false" onAction="#rickAndMortyTheme" text="Rick And Morty" />
+                  <MenuItem mnemonicParsing="false"  onAction="#ninjaTurtlesTheme" text="Ninja Turtles" />
                </items>
-            </Menu>
+          </Menu>
             <Menu mnemonicParsing="false" onAction="#openFile" text="View">
                <items>
                   <MenuItem mnemonicParsing="false" text="TOP 10" />

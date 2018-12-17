@@ -42,6 +42,7 @@ public class PipeMazeClientMainController implements Initializable {
 					defaultPipeGame = Rotater.rotate(lvl,(int)Math.floor(me.getY()/h),(int)Math.floor(me.getX()/w));
 					setPipeGameCanvas(defaultPipeGame);
 				}
+
 			});
 		}
 		
@@ -59,6 +60,15 @@ public class PipeMazeClientMainController implements Initializable {
 			{
 				System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
 			}
+		}
+		
+		public void rickAndMortyTheme(){
+			this.theme = new Theme("pickleRick");
+			setPipeGameCanvas(defaultPipeGame);
+		}
+		public void ninjaTurtlesTheme(){
+			this.theme = new Theme("ninjaturtle");
+			setPipeGameCanvas(defaultPipeGame);
 		}
 
 		

@@ -1,8 +1,16 @@
 package View;
 
+import java.io.File;
 import java.io.FileInputStream;
 
+import javax.print.DocFlavor.URL;
+
+import javafx.scene.SnapshotParameters;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class Theme {
 	
@@ -21,15 +29,51 @@ public class Theme {
 		
 		if(themeType == "pickleRick") {
 			try{
+				
 				straightLine = new Image(new FileInputStream("./src/Resources/pipe1.png"));
 				vertLine = new Image(new FileInputStream("./src/Resources/pipe2.png"));
 				start = new Image(new FileInputStream("./src/Resources/StartPickleRick.png"));
-				end = new Image(new FileInputStream("./src/Resources/Rat.png"));
+				end = new Image(new FileInputStream("./src/Resources/SuperPickleRick.png"));
 				verJ = new Image(new FileInputStream("./src/Resources/pipeJ.png"));
 				verF = new Image(new FileInputStream("./src/Resources/pipeF.png"));
 				ver7 = new Image(new FileInputStream("./src/Resources/pipe7.png"));
 				verL = new Image(new FileInputStream("./src/Resources/pipeL.png"));
-				background =   new Image(new FileInputStream("./src/Resources/Background.jpg"));
+				background =   new Image(new FileInputStream("./src/Resources/Rickk.png"));
+			File file = new File("./src/Resources/Rick and Morty Theme Song.wav");
+				 MediaPlayer a =new MediaPlayer(new Media(file.toURI() .toString()));
+				 a.setOnEndOfMedia(new Runnable() {
+				      public void run() {
+				        a.seek(Duration.ZERO);
+				     }
+				  });
+				  a.play();
+			}catch(Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		else if ( themeType=="ninjaturtle")
+		{
+			try{
+				SnapshotParameters params = new SnapshotParameters();
+				params.setFill(Color.TRANSPARENT);
+				straightLine = new Image(new FileInputStream("./src/Resources/pipe1.png"));
+				vertLine = new Image(new FileInputStream("./src/Resources/pipe2.png"));
+				start = new Image(new FileInputStream("./src/Resources/donatello.png"));
+				end = new Image(new FileInputStream("./src/Resources/Pizza.png"));
+				verJ = new Image(new FileInputStream("./src/Resources/pipeJ.png"));
+				verF = new Image(new FileInputStream("./src/Resources/pipeF.png"));
+				ver7 = new Image(new FileInputStream("./src/Resources/pipe7.png"));
+				verL = new Image(new FileInputStream("./src/Resources/pipeL.png"));
+				background = new Image(new FileInputStream("./src/Resources/Turtle.jpg"));
+				File file = new File("./src/Resources/NinjaTurtleThemeSong.wav");
+				 MediaPlayer a =new MediaPlayer(new Media(file.toURI() .toString()));
+				 a.setOnEndOfMedia(new Runnable() {
+				       public void run() {
+				         a.seek(Duration.ZERO);
+				       }
+				   });
+				  a.play();
 			}catch(Exception e) 
 			{
 				e.printStackTrace();
