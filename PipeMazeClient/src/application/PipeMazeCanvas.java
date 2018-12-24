@@ -4,9 +4,11 @@ import java.io.FileInputStream;
 
 import View.Theme;
 import javafx.beans.InvalidationListener;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class PipeMazeCanvas extends Canvas {
 
@@ -73,8 +75,8 @@ public class PipeMazeCanvas extends Canvas {
 			double w = W / level[0].length; // real width
 			double h = H / level.length; // real width
 			GraphicsContext gc = getGraphicsContext2D();
-
-			gc.drawImage(theme.getBackground(), W, H);
+		
+			gc.drawImage(theme.getBackground(),0,0, W, H);
 			
 			for(int i = 0; i < level.length;i++)
 				for(int j = 0; j < level[0].length;j++) 
