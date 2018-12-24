@@ -1,6 +1,12 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -11,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import utils.Converter;
 import utils.Rotater;
 
 public class PipeMazeClientMainController implements Initializable {
@@ -58,7 +65,8 @@ public class PipeMazeClientMainController implements Initializable {
 			File chosen = fc.showOpenDialog(null);
 			if(chosen != null) 
 			{
-				System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
+				this.defaultPipeGame = Converter.convertFileToCharArray(chosen);
+				setPipeGameCanvas(defaultPipeGame);
 			}
 		}
 		
@@ -72,6 +80,34 @@ public class PipeMazeClientMainController implements Initializable {
 		}
 
 		
-	}
+		public void solve() {
+			Socket s=null;
+			PrintWriter out=null;
+			BufferedReader in=null;
+			try{
+				s = new Socket("127.0.0.1",32);
+				s.setSoTimeout(3000);
+				out=new PrintWriter(s.getOutputStream());
+				in=new BufferedReader(new InputStreamReader(s.getInputStream()));			
+				out.println("done");
+				out.flush();
+				
+				String line=in.readLine();
+			}catch(SocketTimeoutException e){
+				System.out.println("Your Server takes over 3 seconds to answer");
+			}catch(IOException e){
+				System.out.println("Your Server ran into some IOException");
+			}finally{
+				try {
+					in.close();
+					out.close();
+					s.close();
+				} catch (IOException e) {
+					System.out.println("Your Server ran into some IOException");
+				}
+			}
+		}
+}
+
 
 
