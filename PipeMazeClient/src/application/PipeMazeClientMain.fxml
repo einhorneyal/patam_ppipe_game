@@ -16,16 +16,14 @@
           <Menu mnemonicParsing="false" onAction="#openFile" text="Load">
             <items>
               <MenuItem mnemonicParsing="false" text="From disk" />
-                  <MenuItem mnemonicParsing="false" text="From server" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" onAction="#openFile" text="Save">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="To disk" />
-                  <MenuItem mnemonicParsing="false" text="Score" />
-               </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Solve" />
+          <Menu mnemonicParsing="false"  text="Solve" >
+         	 <items>
+                  <MenuItem mnemonicParsing="false" onAction="#solve" text="Solve Stage" />
+              </items>
+          </Menu>
+               
           <Menu mnemonicParsing="false" text="Server Config" />
           <Menu mnemonicParsing="false" text="Theme">
                <items>
@@ -33,15 +31,10 @@
                   <MenuItem mnemonicParsing="false"  onAction="#ninjaTurtlesTheme" text="Ninja Turtles" />
                </items>
           </Menu>
-            <Menu mnemonicParsing="false" onAction="#openFile" text="View">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="TOP 10" />
-                  <MenuItem mnemonicParsing="false" text="Statistics" />
-               </items>
-            </Menu>
         </menus>
       </MenuBar>
    </top>
+   
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>

@@ -21,12 +21,6 @@ public class PipeMazeCanvas extends Canvas {
 	{
 		this.level = lvl;
 		this.theme = theme;
-		//try {
-			//new ServerComunicator().call_me();
-		//} catch (Exception e) {
-		//	// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		//}
 		redraw();
 	}
 	
@@ -81,7 +75,6 @@ public class PipeMazeCanvas extends Canvas {
 			double w = W / level[0].length; // real width
 			double h = H / level.length; // real width
 			GraphicsContext gc = getGraphicsContext2D();
-		
 			gc.drawImage(theme.getBackground(),0,0, W, H);
 			
 			for(int i = 0; i < level.length;i++)
