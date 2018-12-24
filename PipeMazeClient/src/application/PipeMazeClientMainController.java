@@ -2,13 +2,11 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import View.Theme;
 import javafx.event.Event;
@@ -67,6 +65,7 @@ public class PipeMazeClientMainController implements Initializable {
 			{
 				this.defaultPipeGame = Converter.convertFileToCharArray(chosen);
 				setPipeGameCanvas(defaultPipeGame);
+				
 			}
 		}
 		
@@ -79,34 +78,45 @@ public class PipeMazeClientMainController implements Initializable {
 			setPipeGameCanvas(defaultPipeGame);
 		}
 
-		
-		public void solve() {
-			Socket s=null;
-			PrintWriter out=null;
-			BufferedReader in=null;
-			try{
-				s = new Socket("127.0.0.1",32);
-				s.setSoTimeout(3000);
-				out=new PrintWriter(s.getOutputStream());
-				in=new BufferedReader(new InputStreamReader(s.getInputStream()));			
-				out.println("done");
-				out.flush();
-				
-				String line=in.readLine();
-			}catch(SocketTimeoutException e){
-				System.out.println("Your Server takes over 3 seconds to answer");
-			}catch(IOException e){
-				System.out.println("Your Server ran into some IOException");
-			}finally{
-				try {
-					in.close();
-					out.close();
-					s.close();
-				} catch (IOException e) {
-					System.out.println("Your Server ran into some IOException");
-				}
-			}
+
+		public void solve() throws InterruptedException {
+			String ip ="127.0.0.1";
+			int port = 32;
+			try
+		    {
+		      Socket theServer = new Socket(ip, port);
+		      PrintWriter out = new PrintWriter(theServer.getOutputStream());
+		      char[][] data = defaultPipeGame;
+		      for (int i = 0; i < data.length; i++)
+		        out.println(new String(data[i]));
+		      out.println("done");
+		      out.flush();
+		      BufferedReader in = new BufferedReader(new java.io.InputStreamReader(theServer.getInputStream()));
+		      String line;
+		      while (!(line = in.readLine()).equals("done")) { 
+		        int i = Integer.parseInt(line.split(",")[0]); //rows
+		        int j = Integer.parseInt(line.split(",")[1]); // cols
+		        int times = Integer.parseInt(line.split(",")[2]); //rotations
+		        //board.switchCell(i, j, times);
+		        int rot = 0;
+		        while( rot < times) {
+		        	defaultPipeGame = Rotater.rotate(defaultPipeGame,i,j);
+					setPipeGameCanvas(defaultPipeGame);
+					rot++;
+					
+					//need to sleep
+		        }
+		        rot = 0;
+		      }
+		      in.close();
+		      out.close();
+		      theServer.close();
+		    } catch (java.io.IOException e) {
+		      //javax.swing.JOptionPane.showMessageDialog(board, e.getMessage());
+		    	e.printStackTrace();
+		    }			 
 		}
+
 }
 
 
