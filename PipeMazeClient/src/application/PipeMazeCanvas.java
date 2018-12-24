@@ -21,12 +21,12 @@ public class PipeMazeCanvas extends Canvas {
 	{
 		this.level = lvl;
 		this.theme = theme;
-		try {
-			new ServerComunicator().call_me();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//try {
+			//new ServerComunicator().call_me();
+		//} catch (Exception e) {
+		//	// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		//}
 		redraw();
 	}
 	

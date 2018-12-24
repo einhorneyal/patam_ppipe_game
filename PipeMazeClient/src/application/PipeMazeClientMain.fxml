@@ -50,6 +50,7 @@
       </HBox>
    </bottom>
    <center>
-      <PipeMazeCanvas fx:id="pgc" height="416.0" width="548.0" BorderPane.alignment="CENTER" />
+    <!-- <PipeMazeCanvas fx:id="pgc" height="416.0" width="548.0" BorderPane.alignment="CENTER" />  --> 
+    <Canvas height="416.0" width="548.0" BorderPane.alignment="CENTER" /> 
    </center>
 </BorderPane>

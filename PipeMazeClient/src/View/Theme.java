@@ -40,7 +40,7 @@ public class Theme {
 				verL = new Image(new FileInputStream("./src/Resources/pipeL.png"));
 				background =   new Image(new FileInputStream("./src/Resources/Rickk.png"));
 			File file = new File("./src/Resources/Rick and Morty Theme Song.wav");
-				 MediaPlayer a =new MediaPlayer(new Media(file.toURI() .toString()));
+				 MediaPlayer a =new MediaPlayer(new Media(file.toURI().toString()));
 				 a.setOnEndOfMedia(new Runnable() {
 				      public void run() {
 				        a.seek(Duration.ZERO);
@@ -67,13 +67,14 @@ public class Theme {
 				verL = new Image(new FileInputStream("./src/Resources/pipeL.png"));
 				background = new Image(new FileInputStream("./src/Resources/Turtle.jpg"));
 				File file = new File("./src/Resources/NinjaTurtleThemeSong.wav");
-				 MediaPlayer a =new MediaPlayer(new Media(file.toURI() .toString()));
+				 MediaPlayer a =new MediaPlayer(new Media(file.toURI().toString()));
 				 a.setOnEndOfMedia(new Runnable() {
 				       public void run() {
 				         a.seek(Duration.ZERO);
 				       }
 				   });
 				  a.play();
+				 
 			}catch(Exception e) 
 			{
 				e.printStackTrace();
