@@ -225,6 +225,7 @@ public class PipeMazeClientMainController implements Initializable {
 		      
 		    } 
 			catch (java.io.IOException e) {
+				e.printStackTrace();
                 Stage popupwindow=new Stage();
 		    	popupwindow.initModality(Modality.APPLICATION_MODAL);
 		    	popupwindow.setTitle("Server error");
