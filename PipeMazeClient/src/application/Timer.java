@@ -1,16 +1,28 @@
 package application;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
+import View.LabelHandler;
+import javafx.scene.control.Label;
+
 public class Timer extends Thread {
 
 	private int time;
 	private boolean isRunning = true;
+	private LabelHandler lbl;
 	
+	public Timer(LabelHandler label) {
+		this.lbl = label;
+	}
 	
 	public void run() {
 		while(getIsRunning()) {
 			try {
 				Thread.sleep(1000);
 				setTime(getTime() + 1);
+				Integer toStringInt = new  Integer(getTime());
+				String lblText = toStringInt.toString(); 
+				lbl.setText(lblText);
 				System.out.println("---My time " + getTime());
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -21,11 +33,23 @@ public class Timer extends Thread {
 	public void pused() {
 		System.out.println("Timer pused");
 		this.isRunning= false;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void stopTimer() {
 		System.out.println("Timer Stopped");
 		this.isRunning= false;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.setTime(0);
 	}
 
