@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Statistics {
-    int stepsNumber;
-    int secondsElapsed;
+    private int stepsNumber;
+    private int secondsElapsed;
     List<String> Moves = new ArrayList<String>();
     
     public void AddMove(String move)

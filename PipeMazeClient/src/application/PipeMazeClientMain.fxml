@@ -56,10 +56,10 @@
    <left>
       <Pane prefHeight="427.0" prefWidth="88.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="226.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Stop" />
-            <Button layoutX="14.0" layoutY="174.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Start" />
+            <Button layoutX="14.0" layoutY="226.0" minWidth="53.0" mnemonicParsing="false" onAction="#stop" prefHeight="32.0" prefWidth="61.0" text="Stop" />
+            <Button layoutX="14.0" layoutY="174.0" minWidth="53.0" mnemonicParsing="false" onAction="#start" prefHeight="32.0" prefWidth="61.0" text="Start" />
             <Button layoutX="14.0" layoutY="319.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="32.0" prefWidth="61.0" text="Solve" />
-            <Button layoutX="14.0" layoutY="368.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Finish" />
+            <Button layoutX="14.0" layoutY="368.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="32.0" prefWidth="61.0" text="Finish" />
          </children>
       </Pane>
    </left>

@@ -47,6 +47,11 @@ import utils.Rotater;
 public class PipeMazeClientMainController implements Initializable {
 	
 		private Theme theme = new Theme("pickleRick");
+		private Statistics statistics = new Statistics();
+		private Timer timer = new Timer();
+		private Boolean isTimerRunning;
+		private Boolean isFirsIteration = true;
+
 		private char[][] defaultPipeGame = 
 			{
 					{'s','-','|','L'},
@@ -64,6 +69,15 @@ public class PipeMazeClientMainController implements Initializable {
 		{
 			pgc.cleanGame();
 			pgc.setLevel(lvl,theme);	
+			
+			if(isFirsIteration) {
+				startTimer();
+				isFirsIteration = false;
+			}
+			else {
+				resumeTimer(statistics.getSecondsElapsed());
+			} 
+				
 			pgc.setOnMouseClicked(new EventHandler<Event>() {
 
 				@Override
@@ -133,11 +147,40 @@ public class PipeMazeClientMainController implements Initializable {
 			this.theme = new Theme("ninjaturtle");
 			setPipeGameCanvas(defaultPipeGame);
 		}
-		void pause(int time) {
-		    try { Thread.sleep(time); }
-		    catch (InterruptedException e) { }
+		
+		public void resumeTimer(int time) {
+			timer.start(time);
+		}
+		
+		public void startTimer() {
+			this.timer = new Timer();
+			timer.start();
+		}
+		
+		public void pauseTimer() {
+		    timer.pused();
+			statistics.setSecondsElapsed(timer.getTime());
 		}
 	
+		public void stopTimer() {
+		    timer.stopTimer();
+			statistics.setSecondsElapsed(timer.getTime());
+		}
+		
+		public void stop(){
+			stopTimer();
+			isTimerRunning = false;
+		}
+		
+		public void start() {
+			if(!isTimerRunning) {
+				startTimer();
+			}
+			isTimerRunning = true;
+		}
+		
+		//public void 
+		
 		
 	      public void SetServerConfig() throws InterruptedException{
 	    	  Dialog<ServerConfig> dialog = new Dialog<>();
@@ -184,8 +227,11 @@ public class PipeMazeClientMainController implements Initializable {
 	    	  } 
 	    	 
 	      }
+	      
+	    
+	    
 		public void solve() throws InterruptedException {
-		
+			pauseTimer();
 			//ServerConfig serv = new ServerConfig();
 			try
 		    {
