@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import application.PipeMazeCanvas?>
+<?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="467.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PipeMazeClientMainController">
+<!-- <?import application.PipeMazeCanvas?> -->
+ <?import application.PipeMazeCanvas?> 
+
+<BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PipeMazeClientMainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" onAction="#openFile" text="Load">
             <items>
-              <MenuItem mnemonicParsing="false" text="From disk" />
+              <MenuItem mnemonicParsing="false" text="New level" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadLevel" text="Saved level" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false"  text="Solve" >
+          <Menu mnemonicParsing="false" text="Save">
          	 <items>
-                  <MenuItem mnemonicParsing="false" onAction="#solve" text="Solve Stage" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveState" text="To disk" />
               </items>
           </Menu>
                
-          <Menu mnemonicParsing="false" text="Server Config" />
+          <Menu mnemonicParsing="false" text="Server Config">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#SetServerConfig" text="Set Server Config" />
+               </items></Menu>
           <Menu mnemonicParsing="false" text="Theme">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#rickAndMortyTheme" text="Rick And Morty" />
-                  <MenuItem mnemonicParsing="false"  onAction="#ninjaTurtlesTheme" text="Ninja Turtles" />
+                  <MenuItem mnemonicParsing="false" onAction="#ninjaTurtlesTheme" text="Ninja Turtles" />
                </items>
           </Menu>
         </menus>
@@ -43,7 +50,17 @@
       </HBox>
    </bottom>
    <center>
-    <!-- <PipeMazeCanvas fx:id="pgc" height="416.0" width="548.0" BorderPane.alignment="CENTER" />  --> 
-    <Canvas height="416.0" width="548.0" BorderPane.alignment="CENTER" /> 
+   <!--  <PipeMazeCanvas fx:id="pgc" height="416.0" width="548.0" BorderPane.alignment="CENTER" /> --> 
+ <PipeMazeCanvas fx:id="pgc" height="500.0" width="548.0" BorderPane.alignment="CENTER" />      
    </center>
+   <left>
+      <Pane prefHeight="427.0" prefWidth="88.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="14.0" layoutY="226.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Stop" />
+            <Button layoutX="14.0" layoutY="174.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Start" />
+            <Button layoutX="14.0" layoutY="319.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="32.0" prefWidth="61.0" text="Solve" />
+            <Button layoutX="14.0" layoutY="368.0" minWidth="53.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Finish" />
+         </children>
+      </Pane>
+   </left>
 </BorderPane>

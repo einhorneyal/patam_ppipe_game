@@ -73,7 +73,7 @@ public class PipeMazeCanvas extends Canvas {
 			double W = getWidth();
 			double H = getHeight();
 			double w = W / level[0].length; // real width
-			double h = H / level.length; // real width
+			double h = H / level.length; // real high
 			GraphicsContext gc = getGraphicsContext2D();
 			gc.drawImage(theme.getBackground(),0,0, W, H);
 			

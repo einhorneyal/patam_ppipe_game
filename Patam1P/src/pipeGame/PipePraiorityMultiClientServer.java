@@ -29,7 +29,7 @@ public class PipePraiorityMultiClientServer implements Server {
     	 
     }
     public PipePraiorityMultiClientServer() {
-    	this.TCP_SERVER_PORT = 32;
+    	this.TCP_SERVER_PORT = 38;
 
     }
     
