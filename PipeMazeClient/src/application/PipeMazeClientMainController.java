@@ -55,7 +55,8 @@ public class PipeMazeClientMainController implements Initializable {
 	private Label lbl;
 	
 	private Theme theme = new Theme("pickleRick");
-	private Statistics statistics = new Statistics();
+	private Statistics statistics;
+	private int steps = 0;
 	private Boolean isTimerRunning;
 	private Boolean isFirsIteration = true;
 	private LabelHandler label;
@@ -72,11 +73,26 @@ public class PipeMazeClientMainController implements Initializable {
 	
 	
 	ServerConfig servConfig = new ServerConfig();
-	Statistics stats = new Statistics();
 
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setPipeGameCanvas(defaultPipeGame);
+		setLabelHandler();
+		this.timer = new Timer(this.label);
+		if(timer != null) {
+			startTimer();
+			isFirsIteration = false;
+		}	 
+		this.statistics = new Statistics();
+		this.statistics.setLevel(defaultPipeGame);
+		this.statistics.setStepsNumber(0);
+	}
+	
 	public void setLabelHandler() {
 		this.label = new LabelHandler(lbl);
 	}
+	
 	public void setPipeGameCanvas(char[][] lvl) 
 	{
 		pgc.cleanGame();
@@ -90,6 +106,7 @@ public class PipeMazeClientMainController implements Initializable {
 
 			@Override
 			public void handle(Event event) {
+				statistics.setStepsNumber(steps++);
 				MouseEvent me = (MouseEvent) event;
 				double w = pgc.getWidth() / lvl[0].length; 
 				double h = pgc.getHeight() / lvl.length; 
@@ -102,17 +119,7 @@ public class PipeMazeClientMainController implements Initializable {
 	}
 		
 	
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		setPipeGameCanvas(defaultPipeGame);
-		setLabelHandler();
-		this.timer = new Timer(this.label);
-		if(timer != null) {
-			startTimer();
-			isFirsIteration = false;
-		}
-		 
-	}
+	
 	
 	public void openFile() 
 	{
@@ -130,7 +137,6 @@ public class PipeMazeClientMainController implements Initializable {
 	public void loadLevel() 
 	{
 		
-		
 		FileChooser fc = new FileChooser();
 		fc.setTitle("PipeGame Level File");
 		File chosen = fc.showOpenDialog(null);
@@ -144,7 +150,10 @@ public class PipeMazeClientMainController implements Initializable {
 	}
 	public void saveState()
 	{
-		String jsonString = new JSONObject().put("level", defaultPipeGame).put("Time", stats.getSecondsElapsed()).put("Steps", stats.getStepsNumber()).toString();
+		String jsonString = new JSONObject().put("level", defaultPipeGame)
+				.put("Time", statistics.getSecondsElapsed())
+				.put("Steps", statistics.getStepsNumber())
+				.toString();
 		String fileName = new SimpleDateFormat("HHmm_dd_MM_yyyy'.json'").format(new Date());
 		try (PrintWriter out = new PrintWriter(fileName)) {
 		    out.println(jsonString);

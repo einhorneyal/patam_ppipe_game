@@ -6,26 +6,22 @@ import java.util.List;
 public class Statistics {
     private int stepsNumber;
     private int secondsElapsed;
-    List<String> Moves = new ArrayList<String>();
+    private char[][] level;
     
-    public void AddMove(String move)
-    {
-    	this.Moves.add(move);
-    }
-    
-    public List<String> getMoves() {
-		return Moves;
-	}
-  
-	public void setMoves(List<String> moves) {
-		Moves = moves;
-	}
 
-	public Statistics()
+    public Statistics()
     {
     	setStepsNumber(0);
     	setSecondsElapsed(0);
     }
+    
+	public char[][] getLevel() {
+		return level;
+	}
+
+	public void setLevel(char[][] level) {
+		this.level = level;
+	}
     
 	public int getStepsNumber() {
 		return stepsNumber;
