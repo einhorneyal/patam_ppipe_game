@@ -47,17 +47,10 @@
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>
-<<<<<<< HEAD
-            <Label text="  Timer: " />
-            <Label fx:id="lbl" text="Status" />
-            <Label text="  Steps: " />
-            <Label fx:id="lblSteps" text="0" />
-=======
             <Label text="  Timer: "  />
-            <Label fx:id="lbl" text="0	 Steps: 0"  />
-            <!-- <Label text=" 	 Steps: "  /> -->
-            <!--  <Label fx:id="lblSteps" text="0	 Steps: " + steps"  /> -->
->>>>>>> 13a62c1258561e716239ee958d36f241bdacd336
+            <Label fx:id="lbl" text="0"  />            
+            <Label text=" 	 Steps: "  />
+            <Label fx:id="lblSteps" text="0"  />
          </children>
       </HBox>
    </bottom>
@@ -72,7 +65,7 @@
             <Button layoutX="14.0" layoutY="15.0" minWidth="53.0" mnemonicParsing="false" onAction="#start" prefHeight="30.0" prefWidth="60.0" text="Start" />
             <Button layoutX="14.0" layoutY="165.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="30.0" prefWidth="60.0" text="Solve" />
             <Button layoutX="14.0" layoutY="205.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="30.0" prefWidth="60.0" text="Finish" />
-            <Button layoutX="14.0" layoutY="95.0" minWidth="53.0" mnemonicParsing="false" onAction="#stop" prefHeight="30.0" prefWidth="60.0" text="Reset" />
+            <Button layoutX="14.0" layoutY="95.0" minWidth="53.0" mnemonicParsing="false" onAction="#restart" prefHeight="30.0" prefWidth="60.0" text="Reset" />
             <AnchorPane layoutX="0" layoutY="145">
                <children>
                   <Line endX="88" startX="0" />
