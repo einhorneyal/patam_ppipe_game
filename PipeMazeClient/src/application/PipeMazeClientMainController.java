@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import View.LabelHandler;
+import View.LabelStepsHandler;
 import View.Theme;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -59,13 +60,21 @@ public class PipeMazeClientMainController implements Initializable {
 	
 	@FXML
 	private Label lbl;
+<<<<<<< HEAD
 	private ObjectMapper objectMapper = new ObjectMapper();
+=======
+	
+	@FXML
+	private Label lblSteps;
+	
+>>>>>>> 13a62c1258561e716239ee958d36f241bdacd336
 	private Theme theme = new Theme("pickleRick");
 	private Statistics statistics;
 	private int steps = 0;
-	private Boolean isTimerRunning;
-	private Boolean isFirsIteration = true;
+	private boolean isTimerRunning;
+	private boolean isFirsIteration = true;
 	private LabelHandler label;
+	private LabelStepsHandler stepsLabel;
 	private Timer timer;
 
 	private char[][] defaultPipeGame = 
@@ -84,15 +93,26 @@ public class PipeMazeClientMainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setPipeGameCanvas(defaultPipeGame);
+
 		setLabelHandler();
+<<<<<<< HEAD
 	//	this.timer = new Timer(this.label);
+=======
+		setLabelStepsHandler();
+		this.timer = new Timer(this.label);
+>>>>>>> 13a62c1258561e716239ee958d36f241bdacd336
 		if(timer != null) {
 			//startTimer();
 			isFirsIteration = false;
+			isTimerRunning = true;
 		}	 
 		this.statistics = new Statistics();
 		this.statistics.setLevel(defaultPipeGame);
 		this.statistics.setStepsNumber(0);
+	}
+	
+	public void setLabelStepsHandler() {
+		this.stepsLabel = new LabelStepsHandler(lblSteps);
 	}
 	
 	public void setLabelHandler() {
@@ -117,16 +137,15 @@ public class PipeMazeClientMainController implements Initializable {
 				double w = pgc.getWidth() / lvl[0].length; 
 				double h = pgc.getHeight() / lvl.length; 
 				defaultPipeGame = Rotater.rotate(lvl,(int)Math.floor(me.getY()/h),(int)Math.floor(me.getX()/w));
-			
+				//Integer inToText = new Integer(statistics.getStepsNumber());
+				//stepsLabel.setText(inToText.toString());
+				timer.stepsControl(statistics.getStepsNumber());
 				setPipeGameCanvas(defaultPipeGame);
 			}
 
 		});
 	}
-		
-	
-	
-	
+
 	public void openFile() 
 	{
 		FileChooser fc = new FileChooser();
@@ -213,8 +232,11 @@ public class PipeMazeClientMainController implements Initializable {
 	}
 	
 	public void startTimer() {
-		this.timer = new Timer(label);
-		timer.start();
+		
+		if(!isTimerRunning || isFirsIteration) {
+			this.timer = new Timer(label);
+			timer.start();
+		}
 	}
 	
 	public void pauseTimer() {
