@@ -188,13 +188,17 @@ public class PipeMazeClientMainController implements Initializable {
 		    	popupwindow.initModality(Modality.APPLICATION_MODAL);
 		    	popupwindow.setTitle("Level state saved");
 		    	Label label1= new Label("Your state of this level just saved to "+System.getProperty("user.dir")+ "\\" + fileName);
-		    	VBox layout= new VBox(10);
+		    	label1.setWrapText(true);
+
+		    	VBox layout= new VBox();
+		    	layout.resize(label1.getScaleX() + 1000, label1.getScaleY() + 1000);
 		    	layout.getChildren().addAll(label1);		    	      
 		    	layout.setAlignment(Pos.CENTER);		    	      
 		    	Scene scene1= new Scene(layout);
 		    	popupwindow.setScene(scene1);	
-		    	popupwindow.setWidth(scene1.getWidth()+100);
-		    	popupwindow.setHeight(scene1.getHeight()+100);
+		    	
+		    	
+		    	
 		    	popupwindow.showAndWait();
 		    	
 		    //	popupwindow.sizeToScene();
@@ -308,6 +312,91 @@ public class PipeMazeClientMainController implements Initializable {
    	  } 
      }
      
+	 public void finish() throws InterruptedException {
+			stop();
+			//ServerConfig serv = new ServerConfig();
+			try
+		    {
+		      Socket theServer = new Socket(this.servConfig.getServerIP(), this.servConfig.getPortNumber());
+		      PrintWriter out = new PrintWriter(theServer.getOutputStream());
+		      char[][] data = defaultPipeGame;
+		      for (int i = 0; i < data.length; i++)
+		        out.println(new String(data[i]));
+		      out.println("done");
+		      out.flush();
+		      BufferedReader in = new BufferedReader(new java.io.InputStreamReader(theServer.getInputStream()));
+		      String line;
+
+		      char[][] solvedGame = new char[defaultPipeGame.length][defaultPipeGame[0].length];
+		      for(int i=0; i<defaultPipeGame.length; i++)
+		    	  for(int j=0; j<defaultPipeGame[i].length; j++)
+		    		  solvedGame[i][j]=defaultPipeGame[i][j];
+
+		      while (!(line = in.readLine()).equals("done")) { 
+		        int i = Integer.parseInt(line.split(",")[0]); //rows
+		        int j = Integer.parseInt(line.split(",")[1]); // cols
+		        int times = Integer.parseInt(line.split(",")[2]); //rotations
+		        //board.switchCell(i, j, times);
+		        int rot = 0;
+		        while( rot < times) {	
+		        	solvedGame = Rotater.rotate(solvedGame,i,j);
+					rot++;
+		         }
+		      }
+
+		      in.close();
+		      out.close();
+		      theServer.close();
+		      System.out.println(solvedGame);
+		      String sgString = objectMapper.writeValueAsString(solvedGame);
+		      String defultString = objectMapper.writeValueAsString(defaultPipeGame);
+		      if(sgString.equals(defultString))
+		      {
+		    	  Stage popupwindow=new Stage();
+			    	popupwindow.initModality(Modality.APPLICATION_MODAL);
+			    	popupwindow.setTitle("Congratulations!");
+			    	Label label1= new Label("You solved the level correctly!" );
+			    	VBox layout= new VBox(10);
+			    	layout.getChildren().addAll(label1);		    	      
+			    	layout.setAlignment(Pos.CENTER);		    	      
+			    	Scene scene1= new Scene(layout);
+			    	popupwindow.setScene(scene1);	
+			    	popupwindow.setWidth(scene1.getWidth()+100);
+			    	popupwindow.setHeight(scene1.getHeight()+100);
+			    	popupwindow.showAndWait();
+		      }
+		      else {
+		    	  Stage popupwindow=new Stage();
+			    	popupwindow.initModality(Modality.APPLICATION_MODAL);
+			    	popupwindow.setTitle("Oops!");
+			    	Label label1= new Label("This is not the solution, try again!");
+			    	VBox layout= new VBox(10);
+			    	layout.getChildren().addAll(label1);		    	      
+			    	layout.setAlignment(Pos.CENTER);		    	      
+			    	Scene scene1= new Scene(layout);
+			    	popupwindow.setScene(scene1);	
+			    	popupwindow.setWidth(scene1.getWidth() +100);
+			    	popupwindow.setHeight(scene1.getHeight() +100);
+			    	popupwindow.showAndWait();
+		      }
+
+		    } 
+	 catch (java.io.IOException e)
+	 {
+			e.printStackTrace();
+	           Stage popupwindow=new Stage();
+		    	popupwindow.initModality(Modality.APPLICATION_MODAL);
+		    	popupwindow.setTitle("Server error");
+		    	Label label1= new Label("Wrong IP address or port number, configure server on 'Server config' button.");
+		    	VBox layout= new VBox(10);
+		    	layout.getChildren().addAll(label1);		    	      
+		    	layout.setAlignment(Pos.CENTER);		    	      
+		    	Scene scene1= new Scene(layout, 530, 80);	    	      
+		    	popupwindow.setScene(scene1);		    	      
+		    	popupwindow.showAndWait();	    	
+		    }
+	 }
+	 
 	public void solve() throws InterruptedException {
 		stop();
 		//ServerConfig serv = new ServerConfig();

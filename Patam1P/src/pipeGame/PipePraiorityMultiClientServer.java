@@ -17,7 +17,7 @@ import server.ClientHandler;
 import server.Server;
 
 public class PipePraiorityMultiClientServer implements Server {
-    static int TCP_SERVER_PORT = 32;
+    static int TCP_SERVER_PORT = 38;
     private ServerSocket serverSocket;
     private boolean stop = false;
 	private int counter = 0;
