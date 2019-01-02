@@ -3,6 +3,7 @@ package application;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
@@ -14,6 +15,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.*;
+
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import View.LabelHandler;
 import View.Theme;
@@ -53,7 +59,7 @@ public class PipeMazeClientMainController implements Initializable {
 	
 	@FXML
 	private Label lbl;
-	
+	private ObjectMapper objectMapper = new ObjectMapper();
 	private Theme theme = new Theme("pickleRick");
 	private Statistics statistics;
 	private int steps = 0;
@@ -79,9 +85,9 @@ public class PipeMazeClientMainController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		setPipeGameCanvas(defaultPipeGame);
 		setLabelHandler();
-		this.timer = new Timer(this.label);
+	//	this.timer = new Timer(this.label);
 		if(timer != null) {
-			startTimer();
+			//startTimer();
 			isFirsIteration = false;
 		}	 
 		this.statistics = new Statistics();
@@ -136,32 +142,60 @@ public class PipeMazeClientMainController implements Initializable {
 		
 	public void loadLevel() 
 	{
-		
+
 		FileChooser fc = new FileChooser();
 		fc.setTitle("PipeGame Level File");
 		File chosen = fc.showOpenDialog(null);
 		if(chosen != null) 
 		{
-			 
-			this.defaultPipeGame = Converter.convertFileToCharArray(chosen);
-			setPipeGameCanvas(defaultPipeGame);
+			try {
+				this.statistics = objectMapper.readValue(chosen, Statistics.class);
+				this.defaultPipeGame = this.statistics.getLevel();
+				setPipeGameCanvas(defaultPipeGame);
+			} catch (JsonParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 	}
 	public void saveState()
 	{
-		String jsonString = new JSONObject().put("level", defaultPipeGame)
-				.put("Time", statistics.getSecondsElapsed())
-				.put("Steps", statistics.getStepsNumber())
-				.toString();
 		String fileName = new SimpleDateFormat("HHmm_dd_MM_yyyy'.json'").format(new Date());
-		try (PrintWriter out = new PrintWriter(fileName)) {
-		    out.println(jsonString);
-		} catch (FileNotFoundException e) {
+		
+		try {
+			objectMapper.writeValue(new File(fileName), this.statistics);
+			   Stage popupwindow=new Stage();
+		    	popupwindow.initModality(Modality.APPLICATION_MODAL);
+		    	popupwindow.setTitle("Level state saved");
+		    	Label label1= new Label("Your state of this level just saved to "+System.getProperty("user.dir")+ "\\" + fileName);
+		    	VBox layout= new VBox(10);
+		    	layout.getChildren().addAll(label1);		    	      
+		    	layout.setAlignment(Pos.CENTER);		    	      
+		    	Scene scene1= new Scene(layout);
+		    	popupwindow.setScene(scene1);	
+		    	popupwindow.setWidth(scene1.getWidth()+100);
+		    	popupwindow.setHeight(scene1.getHeight()+100);
+		    	popupwindow.showAndWait();
+		    	
+		    //	popupwindow.sizeToScene();
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println(jsonString);
+		
 
 	}
 	
