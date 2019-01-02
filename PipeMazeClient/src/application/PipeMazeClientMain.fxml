@@ -5,21 +5,23 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 
 <!-- <?import application.PipeMazeCanvas?> -->
- <?import application.PipeMazeCanvas?> 
+ <?import application.PipeMazeCanvas?>  
 
 <BorderPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PipeMazeClientMainController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" onAction="#openFile" text="Load">
+          <Menu mnemonicParsing="false" text="Load">
             <items>
-              <MenuItem mnemonicParsing="false" text="New level" />
-                  <MenuItem mnemonicParsing="false" onAction="#loadLevel" text="Saved level" />
+              <MenuItem mnemonicParsing="false" onAction="#openFile" text="New level" />
+              <MenuItem mnemonicParsing="false" onAction="#loadLevel" text="Saved level" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Save">
@@ -45,24 +47,37 @@
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <children>
+<<<<<<< HEAD
+            <Label text="  Timer: " />
+            <Label fx:id="lbl" text="Status" />
+            <Label text="  Steps: " />
+            <Label fx:id="lblSteps" text="0" />
+=======
             <Label text="  Timer: "  />
             <Label fx:id="lbl" text="0	 Steps: 0"  />
             <!-- <Label text=" 	 Steps: "  /> -->
             <!--  <Label fx:id="lblSteps" text="0	 Steps: " + steps"  /> -->
+>>>>>>> 13a62c1258561e716239ee958d36f241bdacd336
          </children>
       </HBox>
    </bottom>
    <center>
    <!--  <PipeMazeCanvas fx:id="pgc" height="416.0" width="548.0" BorderPane.alignment="CENTER" /> --> 
- <PipeMazeCanvas fx:id="pgc" height="500.0" width="548.0" BorderPane.alignment="CENTER" />      
+   <PipeMazeCanvas fx:id="pgc" height="500.0" width="548.0" BorderPane.alignment="CENTER" />      
    </center>
    <left>
       <Pane prefHeight="427.0" prefWidth="88.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="14.0" layoutY="226.0" minWidth="53.0" mnemonicParsing="false" onAction="#stop" prefHeight="32.0" prefWidth="61.0" text="Stop" />
-            <Button layoutX="14.0" layoutY="174.0" minWidth="53.0" mnemonicParsing="false" onAction="#start" prefHeight="32.0" prefWidth="61.0" text="Start" />
-            <Button layoutX="14.0" layoutY="319.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="32.0" prefWidth="61.0" text="Solve" />
-            <Button layoutX="14.0" layoutY="368.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="32.0" prefWidth="61.0" text="Finish" />
+            <Button layoutX="14.0" layoutY="55.0" minWidth="53.0" mnemonicParsing="false" onAction="#stop" prefHeight="30.0" prefWidth="60.0" text="Stop" />
+            <Button layoutX="14.0" layoutY="15.0" minWidth="53.0" mnemonicParsing="false" onAction="#start" prefHeight="30.0" prefWidth="60.0" text="Start" />
+            <Button layoutX="14.0" layoutY="165.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="30.0" prefWidth="60.0" text="Solve" />
+            <Button layoutX="14.0" layoutY="205.0" minWidth="53.0" mnemonicParsing="false" onAction="#solve" prefHeight="30.0" prefWidth="60.0" text="Finish" />
+            <Button layoutX="14.0" layoutY="95.0" minWidth="53.0" mnemonicParsing="false" onAction="#stop" prefHeight="30.0" prefWidth="60.0" text="Reset" />
+            <AnchorPane layoutX="0" layoutY="145">
+               <children>
+                  <Line endX="88" startX="0" />
+               </children>
+            </AnchorPane>
          </children>
       </Pane>
    </left>
