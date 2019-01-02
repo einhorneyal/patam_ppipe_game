@@ -123,8 +123,9 @@ public class PipeMazeClientMainController implements Initializable {
 				double w = pgc.getWidth() / lvl[0].length; 
 				double h = pgc.getHeight() / lvl.length; 
 				defaultPipeGame = Rotater.rotate(lvl,(int)Math.floor(me.getY()/h),(int)Math.floor(me.getX()/w));
-				Integer inToText = new Integer(statistics.getStepsNumber());
-				stepsLabel.setText(inToText.toString());
+				//Integer inToText = new Integer(statistics.getStepsNumber());
+				//stepsLabel.setText(inToText.toString());
+				timer.stepsControl(statistics.getStepsNumber());
 				setPipeGameCanvas(defaultPipeGame);
 			}
 

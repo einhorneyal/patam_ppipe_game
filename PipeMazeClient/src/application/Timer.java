@@ -10,6 +10,7 @@ public class Timer extends Thread {
 	private int time;
 	private boolean isRunning = true;
 	private volatile LabelHandler lbl;
+	private int steps = 0;
 	
 	public Timer(LabelHandler label) {
 		this.lbl = label;
@@ -21,7 +22,7 @@ public class Timer extends Thread {
 				Thread.sleep(1000);
 				setTime(getTime() + 1);
 				Integer toStringInt = new  Integer(getTime());
-				String lblText = toStringInt.toString(); 
+				String lblText = toStringInt.toString() + " 	 Steps: " + steps; 
 				lbl.setText(lblText);
 				System.out.println("---My time " + getTime());
 			} catch (InterruptedException e) {
@@ -49,8 +50,8 @@ public class Timer extends Thread {
 	}
 
 	public void startTimer() {
-		System.out.println("Timer Started");
-		run();
+		System.out.println("Timer Started\n");
+		start();
 	}
 
 	public void start(int time) {
@@ -70,6 +71,11 @@ public class Timer extends Thread {
 	}
 	public void setRunning(boolean isRunning) {
 		this.isRunning = isRunning;
+	}
+
+	public void stepsControl(int stepsNumber) {
+		this.steps  = stepsNumber;
+		
 	}
 
 }
