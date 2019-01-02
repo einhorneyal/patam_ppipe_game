@@ -46,8 +46,8 @@
       <HBox BorderPane.alignment="CENTER">
          <children>
             <Label text="  Timer: "  />
-            <Label fx:id="lbl" text="Status"  />
-            <Label text="  Steps: "  />
+            <Label fx:id="lbl" text="0"  />
+            <Label text=" 	 Steps: "  />
             <Label fx:id="lblSteps" text="0"  />
          </children>
       </HBox>

@@ -9,7 +9,7 @@ public class Timer extends Thread {
 
 	private int time;
 	private boolean isRunning = true;
-	private LabelHandler lbl;
+	private volatile LabelHandler lbl;
 	
 	public Timer(LabelHandler label) {
 		this.lbl = label;
@@ -33,12 +33,6 @@ public class Timer extends Thread {
 	public void pused() {
 		System.out.println("Timer pused");
 		this.isRunning= false;
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void stopTimer() {
@@ -46,11 +40,12 @@ public class Timer extends Thread {
 		this.isRunning= false;
 		try {
 			Thread.sleep(1000);
+			this.setTime(0);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.setTime(0);
+		
 	}
 
 	public void startTimer() {
