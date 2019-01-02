@@ -53,11 +53,11 @@ public class Timer extends Thread {
 		System.out.println("Timer Started\n");
 		start();
 	}
-
+	
 	public void start(int time) {
 		System.out.println("Timer Started with " + getTime() + "Seconds" );
 		this.setTime(time);
-		run();
+		start();
 	}
 	public int getTime() {
 		return time;

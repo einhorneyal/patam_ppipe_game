@@ -110,7 +110,7 @@ public class PipeMazeClientMainController implements Initializable {
 		pgc.cleanGame();
 		pgc.setLevel(lvl,theme);	
 		
-		if(isFirsIteration == false) {
+		if(isFirsIteration == false && !isTimerRunning) {
 			resumeTimer(statistics.getSecondsElapsed());
 		} 
 			
@@ -193,7 +193,7 @@ public class PipeMazeClientMainController implements Initializable {
 		
 		if(!isTimerRunning || isFirsIteration) {
 			this.timer = new Timer(label);
-			timer.start();
+			timer.startTimer();
 		}
 	}
 	
