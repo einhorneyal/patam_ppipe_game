@@ -24,6 +24,7 @@ public class LabelHandler{
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {
+		    	
 		    	lbl.setText(txt);
 		    }
 		});
