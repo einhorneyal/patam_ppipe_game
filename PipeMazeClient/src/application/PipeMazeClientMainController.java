@@ -26,7 +26,6 @@ import View.LabelStepsHandler;
 import View.Theme;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -61,12 +60,12 @@ public class PipeMazeClientMainController implements Initializable {
 	
 	@FXML
 	private Label lbl;
+
 	private ObjectMapper objectMapper = new ObjectMapper();
-	
+
 	@FXML
 	private Label lblSteps;
-	
-	
+
 	private Theme theme = new Theme("pickleRick");
 	private Statistics statistics;
 	private int steps = 0;
@@ -92,18 +91,20 @@ public class PipeMazeClientMainController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setPipeGameCanvas(defaultPipeGame);
+
 		setLabelHandler();
+
 		setLabelStepsHandler();
-		this.statistics = new Statistics();
-		this.statistics.setLevel(defaultPipeGame);
-		this.statistics.setStepsNumber(0);
 		this.timer = new Timer(this.label);
+
 		if(timer != null) {
-			startTimer();
+			//startTimer();
 			isFirsIteration = false;
 			isTimerRunning = true;
 		}	 
-
+		this.statistics = new Statistics();
+		this.statistics.setLevel(defaultPipeGame);
+		this.statistics.setStepsNumber(0);
 	}
 	
 	public void setLabelStepsHandler() {
@@ -119,7 +120,7 @@ public class PipeMazeClientMainController implements Initializable {
 		pgc.cleanGame();
 		pgc.setLevel(lvl,theme);	
 		
-		if(isFirsIteration == false && !isTimerRunning) {
+		if(isFirsIteration == false) {
 			resumeTimer(statistics.getSecondsElapsed());
 		} 
 			
@@ -132,8 +133,9 @@ public class PipeMazeClientMainController implements Initializable {
 				double w = pgc.getWidth() / lvl[0].length; 
 				double h = pgc.getHeight() / lvl.length; 
 				defaultPipeGame = Rotater.rotate(lvl,(int)Math.floor(me.getY()/h),(int)Math.floor(me.getX()/w));
-				Integer inToText = new Integer(statistics.getStepsNumber());
-				stepsLabel.setText(inToText.toString());
+				//Integer inToText = new Integer(statistics.getStepsNumber());
+				//stepsLabel.setText(inToText.toString());
+				timer.stepsControl(statistics.getStepsNumber());
 				setPipeGameCanvas(defaultPipeGame);
 			}
 
@@ -193,9 +195,18 @@ public class PipeMazeClientMainController implements Initializable {
 		    	VBox layout= new VBox();
 		    	layout.resize(label1.getScaleX() + 1000, label1.getScaleY() + 1000);
 		    	layout.getChildren().addAll(label1);		    	      
-		    	layout.setAlignment(Pos.CENTER);		    	      
+		    	layout.setAlignment(Pos.CENTER);
+		    	
 		    	Scene scene1= new Scene(layout);
 		    	popupwindow.setScene(scene1);	
+		    //	scene1.getFill();
+		   	
+		    	popupwindow.setWidth(layout.getWidth()+100);
+		    	popupwindow.setHeight(layout.getHeight()+100);
+		     	popupwindow.setScene(scene1);
+		    	
+		    	//popupwindow.setX(scene1.getX() + scene1.getWidth() / 2 - popupwindow.getWidth() / 2); //dialog.getWidth() = not NaN
+		    	//popupwindow.setY(scene1.getY() + scene1.getHeight() / 2 - popupwindow.getHeight() / 2); 
 		    	popupwindow.showAndWait();
 		    	
 		    //	popupwindow.sizeToScene();
@@ -209,6 +220,7 @@ public class PipeMazeClientMainController implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 	}
 	
@@ -227,22 +239,29 @@ public class PipeMazeClientMainController implements Initializable {
 			timer.startTimer(time);
 			isTimerRunning = true;
 		}
+		timer.start(time);
 	}
 	
 	public void startTimer() {
 		
 		if(!isTimerRunning || isFirsIteration) {
 			this.timer = new Timer(label);
-			if(statistics.getSecondsElapsed() > 0)
-				timer.startTimer(statistics.getSecondsElapsed());
-			else 
-				timer.startTimer();
+			timer.start();
 		}
 	}
 	
-	public void stop(){
+	public void pauseTimer() {
+	    timer.pused();
 		statistics.setSecondsElapsed(timer.getTime());
-		timer.stopTimer();
+	}
+
+	public void stopTimer() {
+	    timer.stopTimer();
+		statistics.setSecondsElapsed(timer.getTime());
+	}
+	
+	public void stop(){
+		stopTimer();
 		isTimerRunning = false;
 	}
 	
@@ -264,8 +283,7 @@ public class PipeMazeClientMainController implements Initializable {
 		timer.setTimeString("0");
 	}
 	//public void 	
-	
-	
+		
 	 public void SetServerConfig() throws InterruptedException{
    	  Dialog<ServerConfig> dialog = new Dialog<>();
    	  dialog.setTitle("Server Configuration");
@@ -309,10 +327,12 @@ public class PipeMazeClientMainController implements Initializable {
    		  this.servConfig.setPortNumber(result.get().getPortNumber());
    		  this.servConfig.setServerIP(result.get().getServerIP());
    	  } 
+   	 
      }
      
+
 	 public void finish() throws InterruptedException {
-			stop();
+			pauseTimer();
 			//ServerConfig serv = new ServerConfig();
 			try
 		    {
@@ -325,12 +345,12 @@ public class PipeMazeClientMainController implements Initializable {
 		      out.flush();
 		      BufferedReader in = new BufferedReader(new java.io.InputStreamReader(theServer.getInputStream()));
 		      String line;
-
+		  
 		      char[][] solvedGame = new char[defaultPipeGame.length][defaultPipeGame[0].length];
 		      for(int i=0; i<defaultPipeGame.length; i++)
 		    	  for(int j=0; j<defaultPipeGame[i].length; j++)
 		    		  solvedGame[i][j]=defaultPipeGame[i][j];
-
+  
 		      while (!(line = in.readLine()).equals("done")) { 
 		        int i = Integer.parseInt(line.split(",")[0]); //rows
 		        int j = Integer.parseInt(line.split(",")[1]); // cols
@@ -378,7 +398,6 @@ public class PipeMazeClientMainController implements Initializable {
 			    	popupwindow.setHeight(scene1.getHeight() +100);
 			    	popupwindow.showAndWait();
 		      }
-
 		    } 
 	 catch (java.io.IOException e)
 	 {
@@ -397,8 +416,8 @@ public class PipeMazeClientMainController implements Initializable {
 	 }
 	 
 	public void solve() throws InterruptedException {
-		stop();
-		//ServerConfig serv = new ServerConfig();
+		pauseTimer();
+	
 		try
 	    {
 	      Socket theServer = new Socket(this.servConfig.getServerIP(), this.servConfig.getPortNumber());
@@ -449,16 +468,8 @@ public class PipeMazeClientMainController implements Initializable {
 	    	popupwindow.setScene(scene1);		    	      
 	    	popupwindow.showAndWait();	    	
 	    }
-	}     
 	
-	private void sleep() {
-		try {
-			Thread.sleep(200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	}     
 
 }
 
