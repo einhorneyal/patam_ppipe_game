@@ -31,6 +31,7 @@ public class Timer extends Thread {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Thread stop");
 	}
 	public void setTimeString(String arg) {
 		lbl.setText(arg);

@@ -196,9 +196,6 @@ public class PipeMazeClientMainController implements Initializable {
 		    	layout.setAlignment(Pos.CENTER);		    	      
 		    	Scene scene1= new Scene(layout);
 		    	popupwindow.setScene(scene1);	
-		    	
-		    	
-		    	
 		    	popupwindow.showAndWait();
 		    	
 		    //	popupwindow.sizeToScene();
@@ -228,6 +225,7 @@ public class PipeMazeClientMainController implements Initializable {
 		if(!isTimerRunning || isFirsIteration) {
 			this.timer = new Timer(label);
 			timer.startTimer(time);
+			isTimerRunning = true;
 		}
 	}
 	
@@ -261,6 +259,7 @@ public class PipeMazeClientMainController implements Initializable {
 		this.statistics.setLevel(defaultPipeGame);
 		this.statistics.setStepsNumber(0);
 		this.statistics.setSecondsElapsed(0);
+		this.steps = 0;
 		stepsLabel.setText("0");
 		timer.setTimeString("0");
 	}
